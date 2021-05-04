@@ -1,0 +1,12 @@
+version: '3.7'
+services:
+  express:
+    build:
+      args:
+        NODE_ENV: development
+    volumes:
+      - ./backend:/app/backend
+    environment: 
+      - NODE_ENV=development
+    command: npm run dev
+
