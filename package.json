@@ -1,0 +1,19 @@
+{
+  "name": "mean-boilerplate",
+  "version": "1.0.0",
+  "description": "The boilderplate to start off your MEAN application easily for both development and production.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./backend/index.js",
+    "dev": "nodemon -L ./backend/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
