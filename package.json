@@ -4,6 +4,7 @@
   "description": "The boilderplate to start off your MEAN application easily for both development and production.",
   "main": "index.js",
   "scripts": {
+    "init": "node ./scripts/init.js",
     "start": "node ./backend/index.js",
     "dev": "nodemon -L ./backend/index.js"
   },
