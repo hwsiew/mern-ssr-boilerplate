@@ -1,7 +1,8 @@
 {
-  "name": "mean-boilerplate",
+  "name": "mern-boilerplate",
   "version": "1.0.0",
-  "description": "The boilderplate to start off your MEAN application easily for both development and production.",
+  "description": "The boilderplate to start off your MERN application easily for both development and production.",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "init": "node ./scripts/init.js",
@@ -9,7 +10,11 @@
     "dev": "nodemon -L ./backend/index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": {
+    "name": "Hong Wei, Siew",
+    "email": "hw.siew.work@gmail.com",
+    "url": "https://github.com/hwsiew"
+  },
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",

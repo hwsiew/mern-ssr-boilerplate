@@ -1,13 +1,19 @@
-const express = require("express");
-const path = require("path");
-const mongoose = require('mongoose');
+import express from "express";
+import path, { dirname } from "path";
+import mongoose from 'mongoose';
+import config from './config.js';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 const { 
 	MONGO_USER,
 	MONGO_PASSWORD, 
 	MONGO_PORT, 
 	MONGO_HOST,
 	MONGO_DB
-} = require('./config');
+} = config;
 
 const app = express();
 
