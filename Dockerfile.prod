@@ -1,0 +1,26 @@
+FROM node AS build
+
+WORKDIR /app
+
+COPY package*.json .
+RUN npm install --production=false
+
+COPY ./webpack.backend.js .
+COPY ./webpack.frontend.js .
+COPY ./backend ./backend
+COPY ./frontend ./frontend
+
+RUN npm run build
+
+FROM node
+WORKDIR /app
+
+COPY package*.json .
+RUN npm install --production
+
+COPY --from=build /app/backend ./backend
+COPY --from=build /app/frontend ./frontend
+
+ENV PORT 3000
+EXPOSE ${PORT}
+CMD ["npm", "start"]

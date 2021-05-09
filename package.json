@@ -2,12 +2,14 @@
   "name": "mern-boilerplate",
   "version": "1.0.0",
   "description": "The boilderplate to start off your MERN application easily for both development and production.",
-  "type": "module",
   "main": "index.js",
   "scripts": {
     "init": "node ./scripts/init.js",
     "start": "node ./backend/index.js",
-    "dev": "nodemon -L ./backend/index.js"
+    "dev:build": "webpack --config webpack.backend.js --watch",
+    "dev:start": "nodemon -L ./backend/index.js",
+    "dev": "npm-run-all --parallel dev:*",
+    "build": "webpack --config webpack.backend.js --config webpack.frontend.js"
   },
   "keywords": [],
   "author": {
@@ -18,9 +20,23 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
-    "mongoose": "^5.12.7"
+    "mongoose": "^5.12.7",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   },
   "devDependencies": {
-    "nodemon": "^2.0.7"
+    "@babel/core": "^7.14.0",
+    "@babel/preset-env": "^7.14.1",
+    "@babel/preset-react": "^7.13.13",
+    "babel-loader": "^8.2.2",
+    "css-loader": "^5.2.4",
+    "html-webpack-plugin": "^5.3.1",
+    "nodemon": "^2.0.7",
+    "npm-run-all": "^4.1.5",
+    "style-loader": "^2.0.0",
+    "webpack": "^5.36.2",
+    "webpack-cli": "^4.6.0",
+    "webpack-dev-middleware": "^4.1.0",
+    "webpack-node-externals": "^3.0.0"
   }
 }
