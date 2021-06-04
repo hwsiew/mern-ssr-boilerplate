@@ -5,6 +5,9 @@
   "main": "index.js",
   "scripts": {
     "init": "node ./scripts/init.js",
+    "docker:up": "docker-compose -f docker-compose.yaml -f docker-compose.dev.yaml up -d",
+    "docker:up:dev": "docker-compose -f docker-compose.yaml -f docker-compose.dev.yaml up -d",
+    "docker:down": "docker-compose down",
     "start": "node ./backend/index.js",
     "dev:build": "webpack --config webpack.backend.js --watch",
     "dev:start": "nodemon -L ./backend/index.js",
