@@ -3,14 +3,26 @@ import path from "path";
 import fs from 'fs';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
+import { StaticRouter } from "react-router-dom";
 import App from '../../frontend/src/App.js';
+
 
 var router = express.Router();
 
-router.get('/', (req,res) => {
-
-	const app = ReactDOMServer.renderToString(<App />);
-
+router.get('/*', (req,res) => {
+	const context = {};
+	const app = ReactDOMServer.renderToString(
+		/**
+		 * <StaticRouter> wiil need to take the current URL for switching in <App>
+		 */
+		<StaticRouter context={ context } location={ req.url }>
+			<App />
+		</StaticRouter>
+	);
+	
+	/**
+	 * Read the index.html generated from build and replace the app's root with the content of app
+	 */
 	const indexFile = path.resolve('./frontend/index.html');
 	fs.readFile(indexFile, 'utf8', (err, data) => {
 		if (err) {
