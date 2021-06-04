@@ -1,11 +1,11 @@
 /**
- * Helper script to initialize project with respective enviroment variables in .env file.
+ * Initialization script to initialize project with respective enviroment variables and output a .env file.
  * 
  * Supported: 
- * 	EXPRESS_PORT
- * 	MONGO_USER
- * 	MONGO_PASSWORD
- * 	MONGO_DATABASE
+ * 	EXPRESS_PORT 	- listening port of rexpress server
+ * 	MONGO_USER		- MongoDB username
+ * 	MONGO_PASSWORD	- MongoDB password
+ * 	MONGO_DATABASE	- Database name to connect in MongoDB
  */
 const fs 	   	= require('fs');
 const readline 	= require("readline");
@@ -14,15 +14,24 @@ const rl 		= readline.createInterface({
     output: process.stdout
 });
 
-rl.question("Express port? (default: 3000)", express_port => {
-	rl.question("MongoDB username? (default: mongoUserDefault)", mongo_user => {
-		rl.question("MongoDB password? (default: mongoPasswordDefault)", mongo_password => {
-			rl.question("MongoDB name of database to connect? (default: '')", mongo_database => {
+// to get the existing .env file if any
+require('dotenv').config();
 
-				express_port = express_port || 3000;
-				mongo_user   = mongo_user   || "mongoUserDefault";
-				mongo_password = mongo_password || "mongoPasswordDefault";
-				mongo_database = mongo_database || '';
+// this will set default to exisiting value if .env file exist
+let default_express_port = process.env.EXPRESS_PORT || 3000,
+	default_mongodb_user = process.env.MONGO_USER || 'mongoUserDefault',
+	default_mongodb_password = process.env.MONGO_PASSWORD || 'mongoPasswordDefault',
+	default_mongodb_database = process.env.MONGO_DATABASE || '';
+
+rl.question(`Express port? (default: ${default_express_port})`, express_port => {
+	rl.question(`MongoDB username? (default: ${default_mongodb_user})`, mongo_user => {
+		rl.question(`MongoDB password? (default: ${default_mongodb_password})`, mongo_password => {
+			rl.question(`MongoDB name of database to connect? (default: ${default_mongodb_database})`, mongo_database => {
+
+				express_port = express_port || default_express_port;
+				mongo_user   = mongo_user   || default_mongodb_user;
+				mongo_password = mongo_password || default_mongodb_password;
+				mongo_database = mongo_database || default_mongodb_database;
 
 				let content = `EXPRESS_PORT=${express_port}\n`;
 				content += `MONGO_USER=${mongo_user}\n`;
@@ -38,6 +47,6 @@ rl.question("Express port? (default: 3000)", express_port => {
 });
 
 rl.on("close", function() {
-    console.log("\nEnjoy development !!!");
+    console.log("\nIt is all set! Enjoy development");
     process.exit(0);
 });
