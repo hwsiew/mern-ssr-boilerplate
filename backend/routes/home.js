@@ -4,22 +4,27 @@ import fs from 'fs';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { StaticRouter } from "react-router-dom";
+import { Provider as ReduxProvider } from "react-redux";
 import App from '../../frontend/src/App.js';
-
+import buildStore from '../../frontend/src/redux';
 
 var router = express.Router();
 
 router.get('/*', (req,res) => {
+
+	let store = buildStore(/* take no initial state */);
+	let state = store.getState(); // state need to ship together with html
+
 	const context = {};
 	const app = ReactDOMServer.renderToString(
-		/**
-		 * <StaticRouter> wiil need to take the current URL for switching in <App>
-		 */
-		<StaticRouter context={ context } location={ req.url }>
-			<App />
-		</StaticRouter>
+		<ReduxProvider store={store}>
+			{/* <StaticRouter> wiil need to take the current URL for switching in <App> */}
+			<StaticRouter context={ context } location={ req.url }>
+				<App />
+			</StaticRouter>
+		</ReduxProvider>
 	);
-	
+
 	/**
 	 * Read the index.html generated from build and replace the app's root with the content of app
 	 */
@@ -31,7 +36,10 @@ router.get('/*', (req,res) => {
 		}
 	
 		return res.send(
-		  data.replace('<div id="root"></div>', `<div id="root">${app}</div>`)
+			data
+			.replace('<div id="root"></div>', `<div id="root">${app}</div>`)
+			// ship state together with html
+			.replace('<script id="redux-data"></script>', `<script> window.REDUX_DATA = ${JSON.stringify(state)} </script>`)
 		);
 	});
 
