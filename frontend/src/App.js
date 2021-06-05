@@ -22,7 +22,20 @@ const Home = (props) => {
 	);
 
 }
-const About = () => <h2>Contnet of about</h2>;
+const About = () => {
+	/**
+	 * data is pass done from server once it is resolved 
+	 */
+	let data = useSelector(store => store.apiReducer);
+	data = JSON.stringify(data);
+	return (
+		<div>
+			<h2>This demo the api fetch</h2>
+			<p>{data}</p>
+		</div>
+	);
+
+}
 const Contact = () => <h2>Content of contact</h2>;
 
 const App = () => {
